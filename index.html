@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Baansiam Connect | ติดตั้งระบบบ้านครบ จบในที่เดียว</title>
+    <meta
+      name="description"
+      content="Baansiam Connect คำนวณราคา CCTV, Solar, Air, Auto Gate พร้อมขอใบเสนอราคาและแชท LINE ได้ทันที"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                50: '#eef4ff',
+                500: '#2563eb',
+                600: '#1d4ed8',
+                700: '#1e3a8a'
+              }
+            },
+            boxShadow: {
+              soft: '0 10px 30px rgba(15, 23, 42, 0.08)'
+            }
+          }
+        }
+      };
+    </script>
+  </head>
+  <body class="bg-white text-slate-900 antialiased">
+    <main class="mx-auto max-w-7xl px-4 pb-20 pt-6 sm:px-6 lg:px-8">
+      <!-- HERO -->
+      <section class="relative overflow-hidden rounded-3xl bg-slate-900 text-white shadow-soft">
+        <div class="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/90 to-slate-800/60"></div>
+        <img
+          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=80"
+          alt="Modern smart home"
+          class="h-full w-full object-cover"
+        />
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(37,99,235,0.35),transparent_45%)]"></div>
+
+        <div class="relative grid gap-8 px-6 py-12 sm:px-10 lg:grid-cols-[1.2fr_1fr] lg:items-center lg:px-14 lg:py-16">
+          <div>
+            <p class="inline-flex items-center rounded-full bg-white/15 px-3 py-1 text-sm font-medium backdrop-blur">
+              Baansiam Connect
+            </p>
+            <h1 class="mt-5 text-3xl font-semibold leading-tight sm:text-4xl lg:text-5xl">
+              ติดตั้งระบบบ้านครบ จบในที่เดียว
+            </h1>
+            <p class="mt-4 text-lg text-slate-200">
+              CCTV | Solar | Air | Auto Gate พร้อมราคาและติดตั้ง
+            </p>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a href="#configurator" class="rounded-xl bg-brand-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-600">
+                เริ่มคำนวณราคา
+              </a>
+              <a href="https://line.me/ti/p/~baansiam" class="rounded-xl border border-white/50 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/20">
+                แชท LINE ตอนนี้
+              </a>
+            </div>
+          </div>
+          <div class="rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur">
+            <p class="text-sm text-slate-200">ประเมินราคาเบื้องต้นในไม่กี่วินาที</p>
+            <div class="mt-4 grid gap-3 text-sm sm:grid-cols-2">
+              <div class="rounded-xl bg-white/10 p-3">ติดตั้งไว • ทีมช่างมืออาชีพ</div>
+              <div class="rounded-xl bg-white/10 p-3">รับประกันงานและอุปกรณ์</div>
+              <div class="rounded-xl bg-white/10 p-3">รองรับบ้าน/โรงงาน/หน่วยงาน</div>
+              <div class="rounded-xl bg-white/10 p-3">บริการพื้นที่อยุธยาและใกล้เคียง</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SERVICE SELECTOR -->
+      <section class="mt-14">
+        <div class="mb-6 flex items-end justify-between gap-4">
+          <div>
+            <h2 class="text-2xl font-semibold sm:text-3xl">เลือกบริการที่ต้องการ</h2>
+            <p class="mt-2 text-slate-600">กดเลือกบริการเพื่อคำนวณราคาและส่งต่อทีมขายทันที</p>
+          </div>
+        </div>
+
+        <div id="serviceCards" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"></div>
+      </section>
+
+      <!-- SMART CONFIGURATOR -->
+      <section id="configurator" class="mt-14 grid gap-6 lg:grid-cols-[1fr_1fr]">
+        <article class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft sm:p-8">
+          <h3 class="text-2xl font-semibold">Smart Configurator</h3>
+          <p class="mt-2 text-sm text-slate-600">ปรับสเปกหน้างาน แล้วดูราคาทันที (พร้อมส่งเข้าทีมขาย)</p>
+
+          <div class="mt-6">
+            <label for="serviceSelect" class="text-sm font-medium text-slate-700">บริการ</label>
+            <select id="serviceSelect" class="mt-2 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm focus:border-brand-500 focus:outline-none">
+              <option value="cctv">CCTV</option>
+              <option value="solar">Solar Cell</option>
+              <option value="air">Air Conditioner</option>
+              <option value="gate">Auto Gate</option>
+            </select>
+          </div>
+
+          <div class="mt-5" id="dynamicInputWrap"></div>
+
+          <div class="mt-6 grid gap-3 sm:grid-cols-2">
+            <button id="quoteBtn" class="rounded-xl bg-brand-500 px-4 py-3 text-sm font-semibold text-white transition hover:bg-brand-600">
+              ขอใบเสนอราคา
+            </button>
+            <button id="lineBtn" class="rounded-xl border border-brand-500 px-4 py-3 text-sm font-semibold text-brand-600 transition hover:bg-brand-50">
+              ส่งเข้า LINE
+            </button>
+          </div>
+          <p id="salesHint" class="mt-3 text-xs text-slate-500">*ทุกการคำนวณเชื่อมกับทีมขายเพื่อออกใบเสนอราคาอย่างรวดเร็ว</p>
+        </article>
+
+        <article class="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-soft sm:p-8">
+          <div class="flex items-center justify-between">
+            <h3 class="text-xl font-semibold">ผลคำนวณเบื้องต้น</h3>
+            <span class="rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-700">อัปเดตแบบเรียลไทม์</span>
+          </div>
+
+          <div class="mt-6 grid gap-4 sm:grid-cols-2">
+            <div class="rounded-2xl bg-white p-4 shadow-sm">
+              <p class="text-sm text-slate-500">ค่าติดตั้งและอุปกรณ์</p>
+              <p class="mt-2 text-2xl font-semibold text-brand-600" id="equipCost">฿0</p>
+            </div>
+            <div class="rounded-2xl bg-white p-4 shadow-sm">
+              <p class="text-sm text-slate-500">ค่าแรงติดตั้ง</p>
+              <p class="mt-2 text-2xl font-semibold text-brand-600" id="installCost">฿0</p>
+            </div>
+          </div>
+
+          <div class="mt-4 rounded-2xl bg-white p-4 shadow-sm">
+            <p class="text-sm text-slate-500">ราคารวมโดยประมาณ</p>
+            <p class="mt-2 text-3xl font-bold text-slate-900" id="totalCost">฿0</p>
+          </div>
+
+          <div class="mt-6 rounded-2xl border border-slate-200 bg-white p-4">
+            <p class="text-sm font-medium text-slate-700">รายการอุปกรณ์ที่แนะนำ</p>
+            <ul id="equipmentList" class="mt-3 list-disc space-y-2 pl-5 text-sm text-slate-600"></ul>
+          </div>
+
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href="tel:0812345678" class="rounded-xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-700">โทรเลย</a>
+            <a href="https://line.me/ti/p/~baansiam" class="rounded-xl bg-[#06C755] px-4 py-3 text-sm font-semibold text-white transition hover:brightness-95">LINE</a>
+          </div>
+        </article>
+      </section>
+
+      <!-- WHY BAANSIAM -->
+      <section class="mt-14 rounded-3xl bg-slate-50 p-6 sm:p-8">
+        <h2 class="text-2xl font-semibold sm:text-3xl">ทำไมต้อง Baansiam</h2>
+        <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div class="rounded-2xl bg-white p-5 shadow-sm">
+            <p class="text-2xl">⚡</p>
+            <h3 class="mt-3 font-semibold">ติดตั้งเร็ว</h3>
+            <p class="mt-1 text-sm text-slate-600">นัดสำรวจไว เริ่มงานได้เร็วตามแผน</p>
+          </div>
+          <div class="rounded-2xl bg-white p-5 shadow-sm">
+            <p class="text-2xl">🛡️</p>
+            <h3 class="mt-3 font-semibold">สินค้าแท้</h3>
+            <p class="mt-1 text-sm text-slate-600">Hikvision, Dahua และแบรนด์มาตรฐาน</p>
+          </div>
+          <div class="rounded-2xl bg-white p-5 shadow-sm">
+            <p class="text-2xl">📍</p>
+            <h3 class="mt-3 font-semibold">บริการท้องถิ่น อยุธยา</h3>
+            <p class="mt-1 text-sm text-slate-600">ดูแลงานหลังติดตั้งโดยทีมในพื้นที่</p>
+          </div>
+          <div class="rounded-2xl bg-white p-5 shadow-sm">
+            <p class="text-2xl">✅</p>
+            <h3 class="mt-3 font-semibold">รับประกัน</h3>
+            <p class="mt-1 text-sm text-slate-600">ประกันงานติดตั้งและอุปกรณ์ครบ</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJECT SHOWCASE -->
+      <section class="mt-14">
+        <div class="flex items-end justify-between gap-4">
+          <div>
+            <h2 class="text-2xl font-semibold sm:text-3xl">ผลงานติดตั้งจริง</h2>
+            <p class="mt-2 text-slate-600">บ้าน • โรงงาน • ร้านค้า</p>
+          </div>
+        </div>
+
+        <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <article class="group relative overflow-hidden rounded-2xl shadow-soft">
+            <img class="h-64 w-full object-cover" src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=900&q=80" alt="โครงการบ้านพักอาศัย" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 transition group-hover:opacity-100"></div>
+            <div class="absolute bottom-0 p-4 text-white opacity-0 transition group-hover:opacity-100">
+              <p class="text-sm">บ้าน</p>
+              <h3 class="font-semibold">ติดตั้ง CCTV 8 จุด + ประตูอัตโนมัติ</h3>
+            </div>
+          </article>
+
+          <article class="group relative overflow-hidden rounded-2xl shadow-soft">
+            <img class="h-64 w-full object-cover" src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=900&q=80" alt="โครงการโรงงาน" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 transition group-hover:opacity-100"></div>
+            <div class="absolute bottom-0 p-4 text-white opacity-0 transition group-hover:opacity-100">
+              <p class="text-sm">โรงงาน</p>
+              <h3 class="font-semibold">Solar 30 kW ลดค่าไฟรายเดือน</h3>
+            </div>
+          </article>
+
+          <article class="group relative overflow-hidden rounded-2xl shadow-soft sm:col-span-2 lg:col-span-1">
+            <img class="h-64 w-full object-cover" src="https://images.unsplash.com/photo-1515165562835-c4c5b1f63b71?auto=format&fit=crop&w=900&q=80" alt="โครงการร้านค้า" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 transition group-hover:opacity-100"></div>
+            <div class="absolute bottom-0 p-4 text-white opacity-0 transition group-hover:opacity-100">
+              <p class="text-sm">ร้านค้า</p>
+              <h3 class="font-semibold">แอร์เชิงพาณิชย์พร้อมระบบกล้อง</h3>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- FINAL CTA -->
+      <section class="mt-14 rounded-3xl bg-brand-50 p-8 text-center sm:p-12">
+        <h2 class="text-3xl font-semibold text-slate-900">รู้ราคาก่อน ตัดสินใจง่ายกว่า</h2>
+        <p class="mx-auto mt-3 max-w-2xl text-slate-600">เริ่มคำนวณตอนนี้ รับราคาประเมินและให้ทีมงานติดต่อกลับทันที</p>
+        <div class="mt-7 flex flex-wrap items-center justify-center gap-3">
+          <a href="#configurator" class="rounded-xl bg-brand-500 px-5 py-3 text-sm font-semibold text-white hover:bg-brand-600">เริ่มคำนวณ</a>
+          <a href="tel:0812345678" class="rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-700">โทรเลย</a>
+          <a href="https://line.me/ti/p/~baansiam" class="rounded-xl bg-[#06C755] px-5 py-3 text-sm font-semibold text-white hover:brightness-95">LINE</a>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const serviceData = {
+        cctv: {
+          label: 'CCTV',
+          icon: '📷',
+          benefit: 'ดูผ่านมือถือได้ 24 ชม.',
+          image:
+            'https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=800&q=80',
+          input: { type: 'range', label: 'จำนวนกล้อง', min: 2, max: 32, step: 1, value: 4, unit: 'ตัว' },
+          calc: (v) => {
+            const equipment = v * 3900;
+            const install = Math.round(equipment * 0.22);
+            return {
+              equipment,
+              install,
+              list: [`กล้อง ${v} ตัว`, 'NVR 1 ชุด', 'ฮาร์ดดิสก์บันทึกภาพ', 'สายและอุปกรณ์ติดตั้ง']
+            };
+          }
+        },
+        solar: {
+          label: 'Solar Cell',
+          icon: '☀️',
+          benefit: 'ลดค่าไฟระยะยาว คุ้มค่าการลงทุน',
+          image:
+            'https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=800&q=80',
+          input: { type: 'range', label: 'จำนวนแผงโซลาร์', min: 4, max: 60, step: 2, value: 12, unit: 'แผง' },
+          calc: (v) => {
+            const equipment = v * 8500;
+            const install = Math.round(equipment * 0.18);
+            return {
+              equipment,
+              install,
+              list: [`แผงโซลาร์ ${v} แผง`, 'อินเวอร์เตอร์ 1 ชุด', 'ชุดโครงติดตั้ง', 'ตู้ควบคุมและระบบป้องกันไฟ']
+            };
+          }
+        },
+        air: {
+          label: 'Air Conditioner',
+          icon: '❄️',
+          benefit: 'ประหยัดไฟ เย็นเร็ว พร้อมดูแลหลังติดตั้ง',
+          image:
+            'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80',
+          input: {
+            type: 'select',
+            label: 'ขนาด BTU',
+            options: [9000, 12000, 18000, 24000, 30000],
+            value: 12000,
+            unit: 'BTU'
+          },
+          calc: (v) => {
+            const equipment = Math.round(v * 1.75);
+            const install = v <= 12000 ? 2500 : 4200;
+            return {
+              equipment,
+              install,
+              list: [`แอร์ขนาด ${v.toLocaleString()} BTU`, 'ท่อน้ำยาและสายไฟตามมาตรฐาน', 'เบรกเกอร์และรางครอบ', 'บริการล้างระบบก่อนส่งมอบ']
+            };
+          }
+        },
+        gate: {
+          label: 'Auto Gate',
+          icon: '🚪',
+          benefit: 'เข้าออกสะดวก ปลอดภัยมากขึ้น',
+          image:
+            'https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=80',
+          input: {
+            type: 'select',
+            label: 'ประเภทประตู',
+            options: [
+              { text: 'บานเลื่อน 3 เมตร', value: 3 },
+              { text: 'บานเลื่อน 4 เมตร', value: 4 },
+              { text: 'บานสวิงคู่ 4 เมตร', value: 5 }
+            ],
+            value: 3,
+            unit: 'เมตร'
+          },
+          calc: (v) => {
+            const base = 38000;
+            const equipment = base + v * 6500;
+            const install = 7500;
+            return {
+              equipment,
+              install,
+              list: ['มอเตอร์ประตูอัตโนมัติ', `โครงสร้างรองรับขนาด ${v} เมตร`, 'รีโมตคอนโทรล 2 ชุด', 'ระบบเซ็นเซอร์ความปลอดภัย']
+            };
+          }
+        }
+      };
+
+      const serviceCards = document.getElementById('serviceCards');
+      const serviceSelect = document.getElementById('serviceSelect');
+      const dynamicInputWrap = document.getElementById('dynamicInputWrap');
+      const equipCostEl = document.getElementById('equipCost');
+      const installCostEl = document.getElementById('installCost');
+      const totalCostEl = document.getElementById('totalCost');
+      const equipmentListEl = document.getElementById('equipmentList');
+      const quoteBtn = document.getElementById('quoteBtn');
+      const lineBtn = document.getElementById('lineBtn');
+
+      function formatTHB(value) {
+        return new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', maximumFractionDigits: 0 }).format(value);
+      }
+
+      function renderServiceCards() {
+        serviceCards.innerHTML = Object.entries(serviceData)
+          .map(
+            ([key, service]) => `
+            <article class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-soft">
+              <img src="${service.image}" alt="${service.label}" class="h-36 w-full object-cover" />
+              <div class="p-4">
+                <h3 class="text-lg font-semibold">${service.icon} ${service.label}</h3>
+                <p class="mt-2 text-sm text-slate-600">${service.benefit}</p>
+                <button data-service="${key}" class="service-jump mt-4 rounded-xl bg-brand-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-600">
+                  คำนวณราคา
+                </button>
+              </div>
+            </article>
+          `
+          )
+          .join('');
+
+        document.querySelectorAll('.service-jump').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            serviceSelect.value = btn.dataset.service;
+            renderDynamicInput();
+            calculate();
+            document.getElementById('configurator').scrollIntoView({ behavior: 'smooth' });
+          });
+        });
+      }
+
+      function renderDynamicInput() {
+        const service = serviceData[serviceSelect.value];
+        const input = service.input;
+
+        if (input.type === 'range') {
+          dynamicInputWrap.innerHTML = `
+            <label class="text-sm font-medium text-slate-700">${input.label}: <span id="dynamicValue" class="text-brand-600 font-semibold"></span></label>
+            <input id="dynamicInput" type="range" min="${input.min}" max="${input.max}" step="${input.step}" value="${input.value}" class="mt-3 w-full accent-blue-600" />
+            <div class="mt-2 flex justify-between text-xs text-slate-400">
+              <span>${input.min} ${input.unit}</span>
+              <span>${input.max} ${input.unit}</span>
+            </div>
+          `;
+        } else {
+          const optionsHtml = input.options
+            .map((option) => {
+              if (typeof option === 'number') {
+                return `<option value="${option}">${option.toLocaleString()} ${input.unit}</option>`;
+              }
+              return `<option value="${option.value}">${option.text}</option>`;
+            })
+            .join('');
+
+          dynamicInputWrap.innerHTML = `
+            <label for="dynamicInput" class="text-sm font-medium text-slate-700">${input.label}</label>
+            <select id="dynamicInput" class="mt-2 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm focus:border-brand-500 focus:outline-none">
+              ${optionsHtml}
+            </select>
+          `;
+          document.getElementById('dynamicInput').value = input.value;
+        }
+
+        const dynamicInput = document.getElementById('dynamicInput');
+        dynamicInput.addEventListener('input', calculate);
+        if (input.type === 'range') {
+          const dynamicValue = document.getElementById('dynamicValue');
+          dynamicValue.textContent = `${dynamicInput.value} ${input.unit}`;
+        }
+      }
+
+      function calculate() {
+        const service = serviceData[serviceSelect.value];
+        const inputMeta = service.input;
+        const dynamicInput = document.getElementById('dynamicInput');
+        const value = Number(dynamicInput.value);
+
+        if (inputMeta.type === 'range') {
+          const dynamicValue = document.getElementById('dynamicValue');
+          dynamicValue.textContent = `${value} ${inputMeta.unit}`;
+        }
+
+        const result = service.calc(value);
+        const total = result.equipment + result.install;
+
+        equipCostEl.textContent = formatTHB(result.equipment);
+        installCostEl.textContent = formatTHB(result.install);
+        totalCostEl.textContent = formatTHB(total);
+        equipmentListEl.innerHTML = result.list.map((item) => `<li>${item}</li>`).join('');
+
+        const salesMessage = encodeURIComponent(
+          `สนใจบริการ ${service.label}\nสเปก: ${inputMeta.label} ${value} ${inputMeta.unit}\nราคารวมโดยประมาณ: ${formatTHB(total)}\nกรุณาติดต่อกลับเพื่อออกใบเสนอราคา`
+        );
+        lineBtn.onclick = () => {
+          window.open(`https://line.me/R/msg/text/?${salesMessage}`, '_blank');
+        };
+      }
+
+      quoteBtn.addEventListener('click', () => {
+        const service = serviceData[serviceSelect.value];
+        const total = totalCostEl.textContent;
+        alert(`รับคำขอใบเสนอราคาแล้ว\nบริการ: ${service.label}\nราคารวมโดยประมาณ: ${total}\nทีมงานจะติดต่อกลับเร็วที่สุด`);
+      });
+
+      serviceSelect.addEventListener('change', () => {
+        renderDynamicInput();
+        calculate();
+      });
+
+      renderServiceCards();
+      renderDynamicInput();
+      calculate();
+    </script>
+  </body>
+</html>
