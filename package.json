@@ -1,0 +1,16 @@
+{
+  "name": "baansiam-connect-landing",
+  "version": "1.0.0",
+  "description": "Lead + Quote + Sales closing system for Baansiam Connect",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

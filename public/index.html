@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Baansiam Connect | ติดตั้ง Solar / CCTV / แอร์ / ประตูอัตโนมัติ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  </head>
+  <body class="bg-slate-50 text-slate-800">
+    <header class="sticky top-0 z-30 border-b border-slate-200/70 bg-white/80 backdrop-blur">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+        <h1 class="text-lg font-semibold tracking-tight">Baansiam Connect</h1>
+        <a
+          href="https://line.me/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="rounded-full bg-emerald-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-emerald-600"
+          >ติดต่อ LINE</a
+        >
+      </div>
+    </header>
+
+    <main>
+      <section class="mx-auto max-w-7xl px-4 pb-16 pt-10 sm:px-6 lg:px-8 lg:pt-16">
+        <div class="overflow-hidden rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200 sm:p-10">
+          <p class="mb-3 inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
+            Lead + Quote + Sales Closing Engine
+          </p>
+          <h2 class="max-w-3xl text-3xl font-bold leading-tight tracking-tight sm:text-5xl">
+            ติดตั้ง Solar / CCTV / แอร์ / ประตูอัตโนมัติ ครบจบที่เดียว
+          </h2>
+          <p class="mt-4 max-w-2xl text-slate-600">
+            เลือกบริการ กดดูแพ็กเกจ คำนวณราคา และขอใบเสนอราคาได้ทันทีในระบบเดียว รองรับการปิดการขายแบบมืออาชีพ
+          </p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a
+              href="#solar-calculator"
+              class="rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-black"
+              >คำนวณราคา</a
+            >
+            <a
+              href="https://line.me/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-100"
+              >ติดต่อ LINE</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <section class="mx-auto max-w-7xl px-4 pb-8 sm:px-6 lg:px-8">
+        <h3 class="mb-4 text-2xl font-bold tracking-tight">เลือกบริการ</h3>
+        <div id="serviceButtons" class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4"></div>
+      </section>
+
+      <section class="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+        <div class="mb-4 flex items-center justify-between gap-4">
+          <h3 id="packageTitle" class="text-2xl font-bold tracking-tight">แพ็กเกจบริการ</h3>
+          <p id="selectedServiceText" class="text-sm text-slate-500">เลือกบริการเพื่อดูแพ็กเกจ</p>
+        </div>
+        <div id="packageGrid" class="grid gap-4 md:grid-cols-2 xl:grid-cols-3"></div>
+      </section>
+
+      <section id="solar-calculator" class="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+        <div class="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200 sm:p-8">
+          <h3 class="text-2xl font-bold tracking-tight">Solar Calculator</h3>
+          <p class="mt-2 text-sm text-slate-600">คำนวณขนาดระบบจากค่าไฟรายเดือนโดยประมาณ</p>
+          <form id="solarForm" class="mt-5 grid gap-4 md:grid-cols-3">
+            <label class="md:col-span-2">
+              <span class="mb-2 block text-sm font-medium">ค่าไฟรายเดือน (THB)</span>
+              <input
+                required
+                type="number"
+                min="1"
+                id="monthlyBill"
+                class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition focus:border-slate-500"
+                placeholder="เช่น 8,000"
+              />
+            </label>
+            <div class="flex items-end">
+              <button
+                class="w-full rounded-xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-black"
+                type="submit"
+              >
+                คำนวณทันที
+              </button>
+            </div>
+          </form>
+          <div id="solarResult" class="mt-6 hidden rounded-2xl bg-slate-100 p-4"></div>
+        </div>
+      </section>
+
+      <section class="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
+        <div class="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200 sm:p-8">
+          <h3 class="text-2xl font-bold tracking-tight">ขอใบเสนอราคาอัตโนมัติ (PDF)</h3>
+          <p class="mt-2 text-sm text-slate-600">กรอกข้อมูลลูกค้า ระบบจะสร้าง PDF ใบเสนอราคาและบันทึก Lead เข้า backend</p>
+          <form id="quoteForm" class="mt-6 grid gap-4 md:grid-cols-2">
+            <label>
+              <span class="mb-2 block text-sm font-medium">ชื่อ</span>
+              <input
+                required
+                id="customerName"
+                type="text"
+                class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition focus:border-slate-500"
+              />
+            </label>
+            <label>
+              <span class="mb-2 block text-sm font-medium">เบอร์โทรศัพท์</span>
+              <input
+                required
+                id="customerPhone"
+                type="tel"
+                class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition focus:border-slate-500"
+              />
+            </label>
+            <label class="md:col-span-2">
+              <span class="mb-2 block text-sm font-medium">แพ็กเกจที่เลือก</span>
+              <input
+                required
+                id="selectedPackageInput"
+                type="text"
+                readonly
+                class="w-full rounded-xl border border-slate-200 bg-slate-100 px-4 py-3 text-slate-700"
+                placeholder="กรุณากดเลือกแพ็กเกจด้านบน"
+              />
+            </label>
+            <label>
+              <span class="mb-2 block text-sm font-medium">บริการ</span>
+              <input
+                required
+                id="selectedServiceInput"
+                type="text"
+                readonly
+                class="w-full rounded-xl border border-slate-200 bg-slate-100 px-4 py-3 text-slate-700"
+              />
+            </label>
+            <label>
+              <span class="mb-2 block text-sm font-medium">ราคา (THB)</span>
+              <input
+                required
+                id="selectedPriceInput"
+                type="text"
+                readonly
+                class="w-full rounded-xl border border-slate-200 bg-slate-100 px-4 py-3 text-slate-700"
+              />
+            </label>
+            <div class="md:col-span-2">
+              <button
+                type="submit"
+                class="w-full rounded-xl bg-emerald-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-600"
+              >
+                ขอใบเสนอราคา / LINE
+              </button>
+            </div>
+          </form>
+          <p id="formMessage" class="mt-3 text-sm text-slate-600"></p>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const serviceData = {
+        Solar: [
+          { title: "Solar On-grid PSI 3 kW", desc: "เหมาะกับบ้านค่าไฟเริ่มต้น", price: 120000 },
+          { title: "Solar On-grid PSI 5 kW", desc: "ขนาดยอดนิยมสำหรับบ้านขนาดกลาง", price: 200000 },
+          { title: "Solar On-grid PSI 10 kW", desc: "รองรับโหลดสูง บ้าน/ธุรกิจขนาดเล็ก", price: 400000 }
+        ],
+        CCTV: [
+          { title: "EZVIZ IP Set 4 Cameras", desc: "ภาพคมชัด ดูผ่านมือถือ", price: 25900 },
+          { title: "EZVIZ IP Set 8 Cameras", desc: "ครอบคลุมบ้านและร้านค้า", price: 49900 },
+          {
+            title: "EZVIZ 16 Cameras + NAS + HDD + TP-Link Mesh WiFi",
+            desc: "ระบบครบสำหรับพื้นที่ใหญ่", price: 129000
+          }
+        ],
+        "Air Conditioner": [
+          { title: "ติดตั้งแอร์ 9000 BTU", desc: "เหมาะกับห้องนอนขนาดเล็ก", price: 17900 },
+          { title: "ติดตั้งแอร์ 12000 BTU", desc: "เหมาะกับห้องทั่วไป", price: 21900 },
+          { title: "ติดตั้งแอร์ 18000 BTU", desc: "รองรับห้องใหญ่หรือพื้นที่เปิด", price: 29900 }
+        ],
+        "Auto Gate": [
+          { title: "Auto Gate 1000kg", desc: "ชุดมอเตอร์พร้อมติดตั้ง", price: 14500 },
+          { title: "Auto Gate 1200kg", desc: "แรงขับมากขึ้นเพื่อประตูหนัก", price: 16500 },
+          { title: "Auto Gate 1500kg", desc: "รองรับงานหนักพิเศษ", price: 26500 }
+        ]
+      };
+
+      const serviceButtons = document.getElementById("serviceButtons");
+      const packageGrid = document.getElementById("packageGrid");
+      const selectedServiceText = document.getElementById("selectedServiceText");
+      const selectedServiceInput = document.getElementById("selectedServiceInput");
+      const selectedPackageInput = document.getElementById("selectedPackageInput");
+      const selectedPriceInput = document.getElementById("selectedPriceInput");
+      const formMessage = document.getElementById("formMessage");
+
+      let currentService = "Solar";
+      let currentPackage = serviceData.Solar[0];
+
+      const formatTHB = (value) =>
+        new Intl.NumberFormat("th-TH", { style: "currency", currency: "THB", maximumFractionDigits: 0 }).format(value);
+
+      const setCurrentPackage = (service, pkg) => {
+        currentService = service;
+        currentPackage = pkg;
+        selectedServiceInput.value = service;
+        selectedPackageInput.value = pkg.title;
+        selectedPriceInput.value = formatTHB(pkg.price);
+      };
+
+      const renderServiceButtons = () => {
+        Object.keys(serviceData).forEach((serviceName) => {
+          const button = document.createElement("button");
+          button.className =
+            "rounded-2xl border border-slate-300 bg-white px-4 py-4 text-left text-sm font-semibold transition hover:-translate-y-0.5 hover:border-slate-400";
+          button.textContent = serviceName;
+          button.addEventListener("click", () => {
+            renderPackages(serviceName);
+          });
+          serviceButtons.appendChild(button);
+        });
+      };
+
+      const renderPackages = (serviceName) => {
+        const packages = serviceData[serviceName] || [];
+        selectedServiceText.textContent = `บริการที่เลือก: ${serviceName}`;
+        packageGrid.innerHTML = "";
+
+        packages.forEach((pkg, index) => {
+          const card = document.createElement("article");
+          card.className =
+            "rounded-3xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md";
+          card.innerHTML = `
+            <h4 class="text-lg font-semibold tracking-tight">${pkg.title}</h4>
+            <p class="mt-2 text-sm text-slate-600">${pkg.desc}</p>
+            <p class="mt-4 text-2xl font-bold">${formatTHB(pkg.price)}</p>
+            <button class="mt-4 w-full rounded-xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-black">ขอใบเสนอราคา / LINE</button>
+          `;
+
+          const ctaButton = card.querySelector("button");
+          ctaButton.addEventListener("click", () => {
+            setCurrentPackage(serviceName, pkg);
+            formMessage.textContent = `เลือกแพ็กเกจแล้ว: ${pkg.title}`;
+            formMessage.className = "mt-3 text-sm text-emerald-600";
+            document.getElementById("quoteForm").scrollIntoView({ behavior: "smooth", block: "start" });
+          });
+
+          packageGrid.appendChild(card);
+
+          if (index === 0) {
+            setCurrentPackage(serviceName, pkg);
+          }
+        });
+      };
+
+      document.getElementById("solarForm").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const bill = Number(document.getElementById("monthlyBill").value);
+
+        if (!bill || bill <= 0) return;
+
+        const kw = bill / 4000;
+        const estimatedPrice = kw * 40000;
+        const monthlySavings = bill * 0.7;
+        const paybackMonths = estimatedPrice / monthlySavings;
+
+        const result = document.getElementById("solarResult");
+        result.classList.remove("hidden");
+        result.innerHTML = `
+          <div class="grid gap-2 text-sm sm:grid-cols-2">
+            <p><strong>ขนาดระบบแนะนำ:</strong> ${kw.toFixed(2)} kW</p>
+            <p><strong>ราคาประเมิน:</strong> ${formatTHB(estimatedPrice)}</p>
+            <p><strong>ประหยัดต่อเดือน:</strong> ${formatTHB(monthlySavings)}</p>
+            <p><strong>ระยะเวลาคืนทุน:</strong> ${paybackMonths.toFixed(1)} เดือน</p>
+          </div>
+        `;
+      });
+
+      document.getElementById("quoteForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        if (!currentService || !currentPackage) {
+          formMessage.textContent = "กรุณาเลือกแพ็กเกจก่อน";
+          formMessage.className = "mt-3 text-sm text-red-600";
+          return;
+        }
+
+        const name = document.getElementById("customerName").value.trim();
+        const phone = document.getElementById("customerPhone").value.trim();
+
+        if (!name || !phone) {
+          formMessage.textContent = "กรุณากรอกชื่อและเบอร์โทรให้ครบ";
+          formMessage.className = "mt-3 text-sm text-red-600";
+          return;
+        }
+
+        const payload = {
+          name,
+          phone,
+          selectedService: currentService,
+          selectedPackage: currentPackage.title,
+          price: currentPackage.price
+        };
+
+        try {
+          const response = await fetch("/api/lead", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+
+          const result = await response.json();
+          if (!response.ok || !result.success) throw new Error(result.message || "ไม่สามารถบันทึก lead ได้");
+
+          const { jsPDF } = window.jspdf;
+          const doc = new jsPDF();
+          doc.setFontSize(18);
+          doc.text("Baansiam Connect - Quotation", 14, 20);
+          doc.setFontSize(12);
+          doc.text(`Name: ${name}`, 14, 35);
+          doc.text(`Phone: ${phone}`, 14, 45);
+          doc.text(`Service: ${currentService}`, 14, 55);
+          doc.text(`Package: ${currentPackage.title}`, 14, 65);
+          doc.text(`Price: ${formatTHB(currentPackage.price)}`, 14, 75);
+          doc.text(`Generated: ${new Date().toLocaleString("th-TH")}`, 14, 85);
+          doc.save(`quotation-${Date.now()}.pdf`);
+
+          formMessage.textContent = "สร้างใบเสนอราคา PDF สำเร็จ และบันทึกข้อมูลลูกค้าแล้ว";
+          formMessage.className = "mt-3 text-sm text-emerald-600";
+        } catch (error) {
+          formMessage.textContent = `เกิดข้อผิดพลาด: ${error.message}`;
+          formMessage.className = "mt-3 text-sm text-red-600";
+        }
+      });
+
+      renderServiceButtons();
+      renderPackages("Solar");
+    </script>
+  </body>
+</html>
